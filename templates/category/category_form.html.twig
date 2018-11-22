@@ -1,0 +1,16 @@
+{{ form_start(categoryForm) }}
+<input id="categoryId" type="hidden">
+{{ form_row(categoryForm.title,{
+'attr':{
+                'placeholder':"Titre de la catégorie",
+                'label'  : 'Titre'
+}}) }}
+<div class="form-group row">
+<div class="col-sm-4"></div>
+<div class="col-sm-8">
+    <button type="submit" class="btn btn-success">
+        Enregistrer
+    </button>
+</div>
+</div>
+{{ form_end(categoryForm) }}

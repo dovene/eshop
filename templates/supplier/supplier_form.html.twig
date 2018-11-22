@@ -1,0 +1,38 @@
+{{ form_start(supplierForm) }}
+<input id="supplierId" type="hidden">
+{{ form_row(supplierForm.name,{
+'attr':{
+                'placeholder':"Nom ou raison sociale du client",
+                'label'  : 'Nom'
+}}) }}
+
+{{ form_row(supplierForm.address,{
+'attr':{
+                'placeholder':"Adresse du client",
+                'label'  : 'Adresse'
+}}) }}
+
+{{ form_row(supplierForm.telephone,{
+'attr':{
+                'label'  : 'Téléphone'
+}}) }}
+
+
+{{ form_row(supplierForm.email,{
+'attr':{
+                'placeholder':"Email du client",
+                'label'  : 'Email'
+}}) }}
+{{ form_row(supplierForm.status,{
+'attr':{
+                'checked'  : 'checked'
+}}) }}
+<div class="form-group row">
+<div class="col-sm-4"></div>
+<div class="col-sm-8">
+    <button type="submit" class="btn btn-success">
+        Enregistrer
+    </button>
+</div>
+</div>
+{{ form_end(supplierForm) }}

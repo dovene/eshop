@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $("#loadstudent").on("click", function (event) {
+                $.ajax({
+                    url: '/customer/ajax',
+                    type: 'POST',
+                    dataType: 'json',
+                    async: true,
+
+                    success: function (data, status) {
+                        var e = $('<tr><th>Name</th><th>Address</th></tr>');
+                        $('#customer').html('');
+                        $('#customer').append(e);
+
+                        for (i = 0; i < data.length; i++) {
+                            customer = data[i];
+                            var e = $('<tr><td id = "name"></td><td id = "address"></td></tr>');
+
+                            $('#name', e).html(customer['name']);
+                            $('#address', e).html(customer['address']);
+                            $('#customer').append(e);
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                });
+            });
+        });
+
+
+        $(document).on('show.bs.modal', '#formModal', function () {
+            alert('hi');
+            	var modal = $(this);
+			$.ajax('{{ path('customer_new') }}', {
+				success: function(data) {
+					modal.find('.modal-body').html(data);
+				}
+			});
+        });
+
+    </script>
+    <script language="javascript">
+
+       
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .table {
+            border-collapse: collapse;
+        }
+        .table th,
+        td {
+            border-bottom: 1px solid #ddd;
+            width: 250px;
+            text-align: left;
+            align: left;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <a id="loadstudent" href="#">Load student information</a>
+
+    <button class="btn btn-primary" data-toggle="modal" data-target="#formModal">
+        <i class="fa fa-plus"></i>
+        Ajouter un client
+    </button>
+
+</br>
+</br>
+
+<table class="table">
+<tbody id="customer"></tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalTitle">Ajout d'un client</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body"></div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

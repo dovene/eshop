@@ -1,0 +1,72 @@
+body {
+    color: rgb(255, 255, 255);
+    font-family: "Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+#centeredDiv {
+    margin-right: auto;
+    margin-left: auto;
+    width: 800px;
+}
+
+.navbar-inverse {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-color: #090909;
+}
+
+#wrapper {
+    min-height: 100vh;
+}
+
+.main-screen {
+    min-height: 80vh;
+}
+
+.bg-dark {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.bg-shader {
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+}
+
+.bg-img {
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.bg-accessories {
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center;
+    min-height: 100vh;
+    background-image: url('../images/acceuil.jpg');
+}
+
+.bg-girl {
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center;
+    min-height: 100vh;
+    background-image: url('../images/girl_computer.jpg');
+}
+
+.bg-footer {
+    background: #212529;
+    height: 4em;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+thead {
+    background: rgb(70, 64, 64);
+    color: rgba(255, 255, 255, 1);
+}

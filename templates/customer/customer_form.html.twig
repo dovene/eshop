@@ -1,0 +1,40 @@
+{{ form_start(formCustomer) }}
+<input id="customerId" name="customerId" type="hidden">
+{{ form_errors(formCustomer) }}
+
+{{ form_row(formCustomer.name,{
+'attr':{'placeholder':"Nom ou raison sociale du client"},
+'label': 'Nom'}
+) }}
+
+
+{{ form_row(formCustomer.address,{
+'attr':{'placeholder':"Adresse du client"},
+'label': 'Adresse'}
+) }}
+
+
+{{ form_row(formCustomer.telephone,{
+'attr':{'placeholder':"Téléphone du client"},
+'label': 'Téléphone'}
+) }}
+
+{{ form_row(formCustomer.email,{
+'attr':{'placeholder':"Email du client"},
+'label': 'Email'}
+) }}
+
+{{ form_row(formCustomer.status,{
+'attr':{'checked':'checked'},
+'label': 'Statut'}
+) }}
+
+<div class="form-group row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-8">
+        <button type="submit" class="btn btn-success">
+            Enregistrer
+        </button>
+    </div>
+</div>
+{{ form_end(formCustomer) }}

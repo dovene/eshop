@@ -1,0 +1,40 @@
+{{ form_start(formPartner) }}
+<input id="partnerId" name="PartnerId" type="hidden">
+{{ form_errors(formPartner) }}
+
+{{ form_row(formPartner.name,{
+'attr':{
+                'placeholder':"Nom ou raison sociale du client",
+                'label'  : 'Nom'
+}}) }}
+
+
+
+{{ form_row(formPartner.telephone,{
+'attr':{
+                'label'  : 'Téléphone'
+}}) }}
+
+{{ form_row(formPartner.address,{
+'attr':{
+                'placeholder':"Adresse du client",
+                'label'  : 'Adresse'
+}}) }}
+{{ form_row(formPartner.email,{
+'attr':{
+                'placeholder':"Email du client",
+                'label'  : 'Email'
+}}) }}
+{{ form_row(formPartner.status,{
+'attr':{
+                'checked'  : 'checked'
+}}) }}
+<div class="form-group row">
+<div class="col-sm-4"></div>
+<div class="col-sm-8">
+    <button type="submit" class="btn btn-success">
+        Enregistrer
+    </button>
+</div>
+</div>
+{{ form_end(formPartner) }}

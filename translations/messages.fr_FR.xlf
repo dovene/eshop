@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="customers_list.title">
+                <source>customers_list.title</source>
+                <target>Liste des clients</target>
+            </trans-unit>
+             <trans-unit id="categories_list.title">
+                <source>categories_list.title</source>
+                <target>Liste des catégories</target>
+            </trans-unit>
+            <trans-unit id="categories.add">
+                <source>categories.add</source>
+                <target>Ajouter une catégorie</target>
+            </trans-unit>
+              
+            <trans-unit id="action.filter">
+                <source>action.filter</source>
+                <target>Filtrer</target>
+            </trans-unit>
+             
+            <trans-unit id="action.update">
+                <source>action.update</source>
+                <target>Modifier</target>
+            </trans-unit>
+            
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Supprimer</target>
+            </trans-unit>
+            
+            <trans-unit id="title.actions">
+                <source>title.actions</source>
+                <target>Actions</target>
+            </trans-unit>
+
+            <trans-unit id="title">
+                <source>title</source>
+                <target>Titre</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

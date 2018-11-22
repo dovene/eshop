@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+    {{ controller_name }}!{% endblock %}
+{% block stylesheets %}
+     {{ parent() }}
+         <link rel="stylesheet" href={{ asset('/css/welcome.css')}}></link>
+{% endblock %}
+{% block body %}
+    <div class="main-screen" id="homepage">
+        <div id="welcome">
+            <section class="bg-accessories">
+
+                <div class="container">
+
+                    <div class="bg-shader">
+                        <div class="container"></br>
+                    </br>
+                </br>
+                <div class="row">
+                    <div class="col-lg-12  text-center">
+                        <h1>Gold eShop</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6  text-center">
+                        La nouvelle façon de gérer votre commerce ! La nouvelle façon de gérer votre commerce ! La nouvelle façon de gérer votre commerce !
+                    </div>
+                    <div class="col-lg-6  text-center">
+                        Plus rapide et plus fiable pour augmenter votre capital
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+</div>
+</div>
+
+{% endblock %}

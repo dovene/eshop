@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Supplier;
+use App\Form\SupplierFormType;
+use App\Controller\PartnerController;
+use App\Repository\SupplierRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class SupplierController  extends PartnerController
+{
+    protected function getPartnerType(){
+        return "CUSTOMER";
+    }
+
+    /**
+     * @Route("/supplier", name="supplier")
+     */
+    public function show(SupplierRepository $repo, Supplier $supplier = null, Request $request,
+        ObjectManager $manager, PaginatorInterface $paginator) {
+
+        //create a form for adding suppliers    
+            if (!$supplier) {
+                $supplier = new Supplier();
+            }
+    
+            $supplierForm= $this->createForm(SupplierFormType::class, $supplier);
+    
+
+        //list all suppliers
+        //$suppliers = $repo->findAll();
+
+        $queryBuilder = $repo->createQueryBuilder('supplier');
+
+        if($request->query->getAlnum('filter')){
+            $queryBuilder
+            ->where('supplier.name LIKE :name')
+            ->setParameter('name', '%'. $request->query->getAlnum('filter').'%');
+        }
+       
+        $query = $queryBuilder->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 3)/*limit per page*/
+        );
+
+
+        if($request->isXmlHttpRequest()) {
+            return $this->render('/supplier/supplier_table.html.twig', [
+                'suppliers' => $pagination,
+            ]);
+        }
+
+     
+        return $this->render('/supplier/supplier.html.twig', [
+            'suppliers' => $pagination,
+           'supplierForm' => $supplierForm->createView()
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/supplier/create", name="supplier_create", condition="request.isXmlHttpRequest()")
+     * @Route("/supplier/{id}/edit", name="supplier_edit", condition="request.isXmlHttpRequest()")
+     */
+    public function form(Supplier $supplier = null, Request $request,
+        ObjectManager $manager) {
+
+        if (!$supplier) {
+            $supplier = new Supplier();
+        }
+
+        $supplierForm = $this->createForm(SupplierFormType::class, $supplier);
+
+        $supplierForm->handleRequest($request);
+        if ($supplierForm->isSubmitted() && $supplierForm->isValid()) {
+            $manager->persist($supplier);
+            $manager->flush();
+            return $this->redirectToRoute('supplier');
+        }
+
+        return $this->render('/supplier/supplier_form.html.twig', array(
+            'supplierForm' => $supplierForm->createView()
+        ));
+    }
+
+
+
+
+     /**
+     *
+     * @Route("/supplier/{id}/delete", name="supplier_delete")
+     */
+    public function delete(Supplier $supplier, Request $request,
+        ObjectManager $manager) {
+        if ($supplier === null) {
+            return $this->redirectToRoute('supplier');
+        }
+        $manager->remove($supplier);
+        $manager->flush();
+        return $this->redirectToRoute('supplier');
+    }
+
+}

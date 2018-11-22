@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+    {{ controller_name }}!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+   <h1>Indicator</h1>
+
+        <h1>Les clients</h1>
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Nouveau client
+        </button>
+
+         <a class="btn btn-secondary" onclick="addCustomer()">New</a>
+
+      
+<div class="table-responsive">
+    <table width="50%" style="border: 1px solid #CCCCCC" class=" table table-responsive table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th >
+                    Nom</th>
+                <th>
+                    Téléphone</th>
+                <th>
+                    Adresse</th>
+                <th>
+                    Statut</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.telephone }}</td>
+                    <td>{{ customer.adress }}</td>
+                    <td>
+
+                        {% if customer.status == 1 %}
+                            Actif
+                        {% else %}
+                            Inactif
+                        {% endif %}
+
+                    </td>
+                    <td>
+                      <a class="btn btn-secondary" 
+                        onclick="editCustomer('{{customer.name}}','{{customer.telephone}}',
+                        '{{customer.adress}}','{{customer.status}},'{{customer.id}}')">Modifier</a>
+
+                  <!--href="{{path('customer_edit',{'id':customer.id})}}"  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal" data-whatever="{{ customer.name }}">
+    <i class="glyphicon glyphicon-info-sign"></i> Modifier
+</button>-->
+                    </td>
+                    <td>
+                        <a href="{{path('customer_delete',{'id':customer.id})}}"  class="btn btn-danger" onclick="return confirm('Confimez-vous la suppression ?')">Supprimer</a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+</div>
+</div>
+<div class="count">
+    {{ pagination.getTotalItemCount }}
+</div>
+
+<div class="navigation">
+    
+    {{ knp_pagination_render(customers) }}
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body%}
+
+    <h2>Client</h2>
+
+    {{ form_start(formCustomer) }}
+
+    {{ form_row(formCustomer.name,{
+'attr':{
+                'placeholder':"Nom ou raison sociale du client",
+                'label'  : 'Nom'
+}}) }}
+
+    {{ form_row(formCustomer.telephone,{
+'attr':{
+                'label'  : 'Téléphone',
+                  'placeholder':"Téléphone du client"
+}}) }}
+
+    {{ form_row(formCustomer.adress,{
+'attr':{
+                'placeholder':"Adresse du client",
+                'label'  : 'Adresse'
+}}) }}
+
+    <button type="submit" class="btn btn-success">
+
+        {% if editMode %}
+            Enregistrer
+        {% else %}
+            Ajouter l'article
+        {% endif %}
+    </button>
+    {{ form_end(formCustomer) }}
+{% endblock %}

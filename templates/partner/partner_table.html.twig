@@ -1,0 +1,87 @@
+<div class="container" id="list">
+    <h4 class="text-center">
+        {% trans %}
+        partners_list.title
+        {% endtrans %}</h4>
+
+    <div class="row">
+        <div class="col-7">
+
+            <button class="btn btn-primary" data-toggle="modal" data-mode="0" data-target="#formModal">
+                <i class="fa fa-plus"></i>
+                Ajouter un client
+            </button>
+        </div>
+
+        <div class="col-5">
+            <div class="filter">
+        
+                <input name="filter" type="text" id="filerInput" placeholder="Nom...">
+                <button type="button" onclick="filter()">Filtrer</button>
+
+            </div>
+        </div>
+
+    </div>
+</br>
+
+<table id="myTable" class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+
+            <th>{{ knp_pagination_sortable(partners, 'Nom', 'partner.name') }}</th>
+            <th>Adresse</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>{{ knp_pagination_sortable(partners, 'Statut', 'partner.status') }}</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody id="list">
+
+        {% for partner in partners %}
+            <tr>
+                <td>{{ partner.name }}</td>
+                 <td>{{ partner.address }}</td>
+                <td>{{ partner.telephone }}</td>
+                <td>{{ partner.email }}</td>
+
+                <td>
+
+                    {% if partner.status == 1 %}
+                        Actif
+                    {% else %}
+                        Inactif
+                    {% endif %}
+
+                </td>
+                <td>
+
+                    <button class="btn btn-secondary" data-toggle="modal" data-mode="{{partner.id}}" data-target="#formModal">
+                        Modifier
+                    </button>
+
+                </td>
+                <td>
+
+                  <!-- <a href="{{path('partner_delete',{'id':partner.id})}}" data-confirm="Etes-vous certain de vouloir supprimer?" class="btn btn-danger">Supprimer</a>-->
+                  <a href="{{path('partner_delete',{'id':partner.id})}}" class="btn btn-danger" onclick="return confirm('Confimez-vous la suppression ?')">Supprimer</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-8">
+        <div class="navigation">
+            {{ knp_pagination_render(partners) }}
+        </div>
+    </div>
+
+</div>
+</div>

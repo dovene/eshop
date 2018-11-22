@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Fournisseurs
+    {% endblock %}
+
+{% block body %}
+    <div id="loader"></div>
+    {% include '/supplier/supplier_table.html.twig' %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalTitle">Ajout d'un client</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  {% include '/supplier/supplier_form.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+ //filter table function    
+        function filter() {
+            $('#loader').prop('hidden', false);
+            $('#list').prop('hidden', true);
+            $.ajax("/supplier?filter=" + $('#filerInput').val() + "", {
+                success: function (data) {
+                    $('#list').prop('hidden', false);
+                    $('#list').html(data);
+                    $('#loader').prop('hidden', true);
+                }
+
+            });
+        };
+//form ready
+        $(document).ready(function () {
+            $('#loader').prop('hidden', true);
+        });
+
+//on formModal shown ready
+        $('#formModal').on('shown.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+            var mode = button.data('mode');
+            var url = "/supplier/create";
+            modal.find('.modal-title').text('Ajout');
+        
+            if (mode != 0) {
+                var modalBody = modal.find('.modal-body');
+                modalBody.empty();
+                modalBody.html('Chargement...');
+                url = "/supplier/" + mode + "/edit"
+                modal.find('.modal-title').text('Modification')
+           
+            var modal = $(this);
+            $.ajax(url, {
+                success: function (data) {
+                    modalBody.html(data);
+                    $('#supplierId').val(mode);
+                }
+            });
+            }
+
+        });
+
+// on modal hidden
+        $('#formModal').on('hidden.bs.modal', function () {
+            location.reload();
+        })
+
+// on submit triggered
+
+        $(document).on('submit', 'form', function (e) {
+            // il est impératif de commencer avec cette méthode qui va empêcher
+            //le navigateur d'envoyer le formulaire lui-même
+            e.preventDefault();
+
+            $form = $(e.target);
+            modal = $('#formModal');
+            var title = modal.find('.modal-title').val();
+            var $submitButton = $form.find(':submit');
+           // $submitButton.html('<i class="fas fa-spinner fa-pulse"></i>');
+            $submitButton.prop('disabled', true);
+            $submitButton.prop('hidden', true);
+            modal.find('.modal-title').text('Patientez....');
+            var formURL = "/supplier/create";
+            var mode = modal.data('mode');
+            if ($('#supplierId').val() != 0) {
+                formURL = "/supplier/" + $('#supplierId').val() + "/edit"
+            }
+            var formData = new FormData(this);
+            $.ajax({
+                url: formURL,
+                type: 'POST',
+                data: formData,
+                mimeType: "multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data, textStatus, jqXHR) {
+                    alert("Opération réussie");
+                    modal.modal('hide');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Opération échouée");
+                    modal.modal('hide');
+                }
+            });
+
+        });
+    </script>
+{% endblock javascripts %}
